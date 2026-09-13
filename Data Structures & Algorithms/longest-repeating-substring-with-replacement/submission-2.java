@@ -1,0 +1,28 @@
+class Solution {
+    public int characterReplacement(String s, int k) {
+        int[] count = new int[26];
+        int left = 0, maxLength = 0, maxFreq = 0; // maxLength for return
+        int right = 0;
+        while (right < s.length()) {
+            // get current
+            int current = s.charAt(right) - 'A';
+            // increase count of current
+            count[current]++;
+
+            // set max freq
+            maxFreq = Math.max(maxFreq, count[current]);
+
+            while ((right - left + 1 - maxFreq) > k) {
+                count[s.charAt(left) - 'A']--;
+                left++;
+            }
+            //
+            maxLength = Math.max(maxLength, right - left + 1);
+
+            right++;
+        }
+
+
+        return maxLength;
+    }
+}
